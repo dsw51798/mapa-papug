@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://kit.fontawesome.com/ca2dbaeb71.js" crossorigin="anonymous"></script>
+  <title>Mapa Papug — logowanie</title>
+  <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>PAPUGI</h1>
+    i papużki<br><br>
+  </header>
+
+  <ul>
+    <li><a href="{{url_for('index')}}"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="{{url_for('parrot_map')}}"><i class="fa-solid fa-globe"></i> Mapa Papug</a></li>
+    <li><a href="#about"><i class="fa-solid fa-newspaper"></i> O nas</a></li>
+    <div class="dropdown">
+      <li1><a href="templates/profile.html">Mój profil <i class="fa-solid fa-user"></i></a></li1>
+      <div class="dropdown-content">
+        <ul>
+          {% if current_user.is_authenticated %}
+            <li1><a href="{{url_for('logout')}}">Wyloguj się <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li1>
+            <li1><a href="{{url_for('parrot_map')}}">Zacznij przesyłać! <i class="fa-solid fa-image"></i></a></li1>
+          {% else %}
+            <li1><a href="{{url_for('login')}}">Zaloguj się <i class="fa-solid fa-key"></i></a></li1>
+            <li1><a href="{{url_for('register')}}">Utwórz konto <i class="fa-solid fa-id-card"></i></a></li1>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </ul>
+
+  <main>
+    <form action="{{ url_for('login') }}" method="POST">
+      <h1>Formularz logowania</h1>
+      <label for="username"><b>Nazwa użytkownika:</b></label>
+      <br>
+      <input type="text" name="username" />
+      <br>
+      <label for="password"><b>Hasło:</b></label>
+      <br>
+      <input type="password" name="password" />
+      <br>
+      <button type="submit"><b>Zaloguj się</b></button>
+    </form>
+    {% if msg %}
+        <p style="color: red;">{{ msg }}</p>
+    {% endif %}
+  </main>
+</body>
+
+</html>

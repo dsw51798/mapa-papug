@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://kit.fontawesome.com/ca2dbaeb71.js" crossorigin="anonymous"></script>
+  <title>Mapa Papug</title>
+  <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>PAPUGI</h1>
+    i papużki<br><br>
+  </header>
+
+  <ul>
+    <li><a href="{{url_for('index')}}"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="{{url_for('parrot_map')}}"><i class="fa-solid fa-globe"></i> Mapa Papug</a></li>
+    <li><a href="#about"><i class="fa-solid fa-newspaper"></i> O nas</a></li>
+    <div class="dropdown">
+      <li1><a href="templates/profile.html">Mój profil <i class="fa-solid fa-user"></i></a></li1>
+      <div class="dropdown-content">
+        <ul>
+          {% if current_user.is_authenticated %}
+            <li1><a href="{{url_for('logout')}}">Wyloguj się <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li1>
+            <li1><a href="{{url_for('parrot_map')}}">Zacznij przesyłać! <i class="fa-solid fa-image"></i></a></li1>
+          {% else %}
+            <li1><a href="{{url_for('login')}}">Zaloguj się <i class="fa-solid fa-key"></i></a></li1>
+            <li1><a href="{{url_for('register')}}">Utwórz konto <i class="fa-solid fa-id-card"></i></a></li1>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </ul>
+
+
+
+
+  <main>
+    {% if current_user.is_authenticated %}
+      <h1>Witaj z powrotem!</h1>
+    {% else %}
+      <h1>Witaj w świecie papug!</h1>
+    {% endif %}
+    Mapa papug to innowacyjny projekt mający na celu zbudowanie globalnej sieci entuzjastów papug! Z dynamicznym globusem przedstawiającym papugi w wielu krajach na całym świecie, naszym celem jest dostarczenie najlepszej jakości usług w formie papugi, które zostaną wykorzystane w wielu projektach.
+  </main>
+  <a href="{{url_for('parrot_map')}}" style="text-decoration: none;">
+    <div id='cta_mapinvite' align=center>
+      <h2>Odwiedź naszą innowacyjną mapę papug już dziś!</h2>
+      <img src="{{ url_for('static',filename='/img/map_showcase.png') }}" style="max-width: 30%; border-radius: 16px;"><br>
+    {% if current_user.is_authenticated %}
+      Chcesz pokazać swoją papugę całemu światu? Nie czekaj!<br>Za darmo dla zalogowanych użytowników!
+    {% else %}
+      <a href="{{url_for('register')}}">Chcesz pokazać swoją papugę całemu światu? Nie czekaj! Utwórz darmowe konto żeby wziąć udział w projekcie</a>
+    {% endif %}
+    </div>
+  </a>
+  <main>
+    <h2>O projekcie</h2>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at facilisis tortor. Nulla sit amet neque
+    scelerisque, tempor orci eu, lacinia ligula. Ut suscipit mi et augue placerat bibendum. Suspendisse massa quam,
+    blandit id augue pretium, scelerisque pharetra nisi. Duis commodo malesuada gravida. Orci varius natoque penatibus
+    et magnis dis parturient montes, nascetur ridiculus mus. Integer vel vestibulum nulla, eu rhoncus diam. Phasellus
+    sed placerat nisi, at maximus lacus. Maecenas libero orci, condimentum vel diam at, elementum vestibulum nisi. Fusce
+    in dapibus tellus, et egestas ligula. Quisque dapibus ipsum varius, aliquet libero id, suscipit odio. In non feugiat
+    libero, et varius ex. In id diam et quam pretium accumsan. Pellentesque porta, urna et auctor pulvinar, massa quam
+    ullamcorper lorem, sit amet posuere lectus metus nec mauris. Fusce eget cursus enim. Pellentesque ultrices ultricies
+    metus, in finibus eros elementum vel.
+
+    Fusce suscipit, felis ac scelerisque lobortis, urna nulla rutrum ante, id rutrum orci sem eget arcu. Nam dui ligula,
+    eleifend in gravida non, vestibulum quis neque. Quisque finibus eleifend consectetur. Duis accumsan turpis tristique
+    turpis eleifend posuere. Cras nec cursus libero. Maecenas sodales, sapien in posuere rhoncus, ex orci consequat
+    nisl, auctor sodales ex dui eu diam. Ut nec massa tristique, eleifend ipsum sed, placerat tortor. Nulla pretium urna
+    at massa pharetra, ut eleifend ex laoreet. Sed fermentum, enim at eleifend mattis, elit justo mollis quam, ac
+    ultricies turpis risus ut quam. Maecenas at accumsan turpis.
+
+    Curabitur mollis consectetur elementum. Duis laoreet nulla lectus, quis condimentum dolor pharetra pharetra. Vivamus
+    cursus elementum neque et placerat. Quisque hendrerit felis vitae placerat facilisis. Nulla rutrum felis ut odio
+    mollis, sit amet suscipit sem iaculis. Curabitur imperdiet gravida arcu sit amet sodales. Vestibulum ultricies
+    mollis urna, eget congue nisl ornare in.
+
+    Suspendisse ornare ligula orci, non faucibus nisl condimentum eget. Praesent interdum tincidunt massa, id feugiat
+    massa tincidunt in. Nam magna est, aliquet et elementum ac, gravida non ex. Maecenas interdum efficitur risus a
+    porta. Pellentesque at placerat erat. Morbi tincidunt interdum tempus. In ultrices faucibus tellus sit amet varius.
+
+    Sed vel vulputate turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam imperdiet pretium
+    odio, vitae tempus mauris consequat vel. Donec sed lectus et neque efficitur gravida. Duis tempus nulla sed erat
+    pellentesque tempus. Vivamus condimentum lorem velit, id ultricies lacus hendrerit ut. Pellentesque suscipit erat
+    enim, vel fringilla nisl viverra at. Nulla porttitor viverra pellentesque. Orci varius natoque penatibus et magnis
+    dis parturient montes, nascetur ridiculus mus. Nam dignissim erat at tortor tincidunt, quis malesuada augue gravida.
+    Quisque sit amet pharetra nibh, in tincidunt tellus. Morbi accumsan ligula ut magna vulputate, in maximus eros
+    ultricies. Donec semper est vel tortor convallis, at iaculis nulla pellentesque.
+  </main>
+</body>
+
+</html>

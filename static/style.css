@@ -1,0 +1,210 @@
+@font-face {
+  font-family: bender;
+  src: url("fonts/Bender-Light.woff") format("woff");
+}
+
+@font-face {
+    font-family: bender;
+    font-weight: bold;
+    src: url("fonts/Bender.woff") format("woff");
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+header {
+  h1 {
+    line-height: 20%;
+  }
+  color: white;
+  text-align: center;
+  
+  border: 1px solid black;
+  background-image: url(img/header.png);
+  background-position: center;
+  background-size: cover;
+}
+
+ul {
+  list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+li1{
+  float:right;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+li1 a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: .2s;
+}
+
+li a:hover {
+  background-color: #64c864;
+  color: white;
+}
+
+li1 a:hover {
+  background-color: #c86464;
+  color: white;
+}
+
+.dropdown{
+  float: center
+  overflow: hidden;
+}
+
+.dropdown-content {
+  display: none;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content{display: block;}
+
+form{
+  width:80%;
+  margin-top: 1cm;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button[type=submit] {
+  width: 100%;
+  background-color: #64c864;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+label {
+  font-size: 16px;
+}
+
+main {
+  font-size: 16px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+body {
+  background-color: lightblue;
+  background-image: url(img/bg.jpg);
+  font-family: bender;
+  font-size: 20px;
+  max-width: 75%;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+#render_container{
+  max-width: 73%;
+  background-color: #91cfe9;
+  border: solid #87ceeb;
+  box-shadow: 0px 0px 16px #87ceeb;
+  margin: 0 auto;
+}
+
+#map_popup {
+  visibility: hidden;
+  box-shadow: 0px 0px 16px #87ceeb;
+  width: 120px;
+  height: 150px;
+  background-color: #fff;
+  color: #000;
+  padding: 8px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  left: 0px; right: 0px; top:0px; bottom:0px;
+  z-index: 1;
+}
+
+#map_image {
+  display: block;
+  max-width: 60%; max-height: 60%;
+  margin-left: auto; margin-right: auto;
+}
+
+#cta_register{
+  background-color: #64c864;
+  color: white;
+  padding: 4px 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+#upload_container{
+  background-color: #deb887;
+  color: white;
+  padding: 4px 0;
+  width: 100%;
+}
+
+#gallery_container{
+  background-color: #cdaa7d;
+  color: #white;
+  padding: 4px 0;
+  width: 100%
+}
+
+#cta_mapinvite{
+  background-color: #64c864;
+  color: white;
+  padding: 8px 0px;
+  cursor: pointer;
+  width: 100%;
+}

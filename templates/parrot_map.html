@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://kit.fontawesome.com/ca2dbaeb71.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <title>replit</title>
+  <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>PAPUGI</h1>
+    i papużki<br><br>
+  </header>
+
+  <ul>
+    <li><a href="{{url_for('index')}}"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="{{url_for('parrot_map')}}"><i class="fa-solid fa-globe"></i> Mapa Papug</a></li>
+    <li><a href="#about"><i class="fa-solid fa-newspaper"></i> O nas</a></li>
+    <div class="dropdown">
+      <li1><a href="templates/profile.html">Mój profil <i class="fa-solid fa-user"></i></a></li1>
+      <div class="dropdown-content">
+        <ul>
+          {% if current_user.is_authenticated %}
+            <li1><a href="{{url_for('logout')}}">Wyloguj się <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li1>
+            <li1><a href="{{url_for('parrot_map')}}">Zacznij przesyłać! <i class="fa-solid fa-image"></i></a></li1>
+          {% else %}
+            <li1><a href="{{url_for('login')}}">Zaloguj się <i class="fa-solid fa-key"></i></a></li1>
+            <li1><a href="{{url_for('register')}}">Utwórz konto <i class="fa-solid fa-id-card"></i></a></li1>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </ul>
+
+  <main>
+    <h2>Mapa papug!</h2>
+    Mapa papug przedstawia papugi z całego świata.<p></p>
+    <div id="map_popup">
+      <img id="map_image" src="{{ url_for('static',filename='/live/src/blank.png') }}" align=center>
+      <p>Przesłano przez: </p>
+      <p>... temu</p>
+    </div>
+    <div id="render_container" align=center>
+      <script type="module" src="{{ url_for('static',filename='/js/parrot_map.js') }}"></script>
+    </div>
+  </main>
+  {% if current_user.is_authenticated %}
+    <div id="upload_container" align = center>
+      <h2>Dodaj swoją papugę!</h2>
+      <form action = "{{ url_for('upload_file') }}" method = "POST" 
+        enctype = "multipart/form-data">
+        <input type = "file" name = "file" />
+        <script src="{{ url_for('static',filename='/js/gps_fetcher.js') }}"></script>
+        <fieldset>
+          <legend>Wybierz opcję odczytu lokalizacji</legend>
+          <input type="radio" id="latlong_exif" name="latlong_option" value="exif" checked onclick="hide_input();"/>
+          <label for="exif">Odczytaj lokalizację ze zdjęcia</label>
+          <br>
+          <input type="radio" id="latlong_gps" name="latlong_option" value="gps" checked onclick="fetch_gps();"/>
+          <label for="gps">Użyj lokalizacji przeglądarki</label>
+          <br>
+          <input type="radio" id="latlong_manual" name="latlong_option" value="manual" checked onclick="enable_input();"/>
+          <label for="manual">Wpisz lokalizację manualnie</label><br>
+          <label for="lat" id="latlabel">Szerokość:</label>
+          <input type="number" step="0.0000001" name="lat" id="latinput"></input>
+          <label for="long" id="longlabel">Wysokość:</label>
+          <input type="number" step="0.0000001" name="lon" id="longinput"></input>
+        </fieldset>
+        <br>
+        <button type = "submit"><b>Prześlij zdjęcie!</b></button>
+      </form>
+      {% if msg %}
+          <p style="color: red;">{{ msg }}</p>
+      {% endif %}
+    </div>
+  {% else %}
+    <a href="{{url_for('register')}}" style="text-decoration:none">
+      <div id="cta_register" align=center>
+        <h2>Chcesz dodać tu swoją papugę?</h2>
+        <p>Utwórz konto <i>Papugi i Papużki</i> już dziś!<br>Za darmo. Na zawsze.</p>
+        <p style="font-size: 8px">Obowiązują warunki. <u>Dowiedz się więcej.</u></p>
+      </div>
+    </a>
+    <script src="script.js"></script>
+  {% endif %}
+</body>
+
+</html>
