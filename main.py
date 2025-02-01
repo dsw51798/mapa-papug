@@ -139,7 +139,7 @@ def upload_file():
             else:
                 insert_photo(lat, lon, f.filename, time.time(), current_user.username)
         elif(loc_option == 'manual' or loc_option == 'gps'):
-            insert_photo(request.form['lat'], request.form['lon'], f.filename, time.time(), current_user.username)
+            insert_photo(request.form['lat'], request.form['lon'], f.filename, int(time.time()), current_user.username)
         return redirect(url_for('parrot_map'))
 
 @app.route('/')

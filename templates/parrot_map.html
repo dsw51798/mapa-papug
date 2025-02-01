@@ -49,8 +49,8 @@
     Mapa papug przedstawia papugi z całego świata.<p></p>
     <div id="map_popup">
       <img id="map_image" src="{{ url_for('static',filename='/live/src/blank.png') }}" align=center>
-      <p>Przesłano przez: </p>
-      <p>... temu</p>
+      <p id="map_image_author_text">Przesłano przez: </p>
+      <p id="map_image_time_text">... temu</p>
     </div>
     <div id="render_container" align=center>
       <script type="module" src="{{ url_for('static',filename='/js/parrot_map.js') }}"></script>

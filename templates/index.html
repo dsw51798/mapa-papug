@@ -46,14 +46,14 @@
     {% endif %}
     Mapa papug to innowacyjny projekt mający na celu zbudowanie globalnej sieci entuzjastów papug! Z dynamicznym globusem przedstawiającym papugi w wielu krajach na całym świecie, naszym celem jest dostarczenie najlepszej jakości usług w formie papugi, które zostaną wykorzystane w wielu projektach.
   </main>
-  <a href="{{url_for('parrot_map')}}" style="text-decoration: none;">
+  <a href="{{url_for('parrot_map')}}" style="text-decoration: none; color: #ffffff;">
     <div id='cta_mapinvite' align=center>
       <h2>Odwiedź naszą innowacyjną mapę papug już dziś!</h2>
       <img src="{{ url_for('static',filename='/img/map_showcase.png') }}" style="max-width: 30%; border-radius: 16px;"><br>
     {% if current_user.is_authenticated %}
       Chcesz pokazać swoją papugę całemu światu? Nie czekaj!<br>Za darmo dla zalogowanych użytowników!
     {% else %}
-      <a href="{{url_for('register')}}">Chcesz pokazać swoją papugę całemu światu? Nie czekaj! Utwórz darmowe konto żeby wziąć udział w projekcie</a>
+      <a href="{{url_for('register')}}" style="text-decoration: none; color: #ffffff;">Chcesz pokazać swoją papugę całemu światu? Nie czekaj! Utwórz darmowe konto żeby wziąć udział w projekcie</a>
     {% endif %}
     </div>
   </a>

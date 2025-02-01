@@ -74,7 +74,7 @@ li1 a:hover {
 }
 
 .dropdown{
-  float: center
+  float: center;
   overflow: hidden;
 }
 
@@ -175,7 +175,8 @@ body {
 
 #map_image {
   display: block;
-  max-width: 60%; max-height: 60%;
+  border-radius: 4px;
+  max-width: 90%; max-height: 80%;
   margin-left: auto; margin-right: auto;
 }
 
@@ -196,7 +197,7 @@ body {
 
 #gallery_container{
   background-color: #cdaa7d;
-  color: #white;
+  color: white;
   padding: 4px 0;
   width: 100%
 }

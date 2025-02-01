@@ -78,7 +78,7 @@ async function loadPhotos() {
 
 //"Come on, do some of that pilot stuff!" - Goose, Top Gun (1986)
 function addMarkers(photos) {
-  photos.forEach(({ lat, lon, photo }) => {
+  photos.forEach(({ lat, lon, photo, time, author }) => {
     const latRad = degToRad(lat);
     const lonRad = degToRad(-lon);
   
@@ -92,7 +92,7 @@ function addMarkers(photos) {
     marker.material.shading = THREE.FlatShading;
     marker.geometry.computeVertexNormals(true);
 
-    marker.userData = {photo: photo};
+    marker.userData = {photo: photo, time: parseInt(time), author:author};
     marker.name = "photoMarker";
   
     marker.position.set(x, y, z);
@@ -102,9 +102,30 @@ function addMarkers(photos) {
 
 loadPhotos();
 
+const rtf1 = new Intl.RelativeTimeFormat('pl', { style: 'short' });
+function dateFormatter(time) {
+  let timePassed = parseInt((Date.now()/1000) - time);
+  console.log(timePassed);
+  //wyjątkowy przypadek gdzie nie używam switch'a dla tylu przypadków
+  //wyjaśnienie: https://stackoverflow.com/questions/6665997/switch-statement-for-greater-than-less-than
+  if (timePassed < 60) {
+    return rtf1.format(Math.round(-timePassed, 0), 'seconds');
+  } else if (timePassed < 3600) {
+    return rtf1.format(Math.round(-timePassed / 60, 0), 'minutes');
+  } else if (timePassed < 86400) {
+    return rtf1.format(Math.round(-timePassed / 3600, 0), 'hours');
+  } else if (timePassed < 604800) {
+    return rtf1.format(Math.round(-timePassed / 86400, 0), 'days');
+  } else {
+    return rtf1.format(Math.round(-timePassed / 604800, 0), 'weeks');
+  }
+}
+
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 const popup = document.getElementById("map_popup");
+const popup_author_text = document.getElementById("map_image_author_text");
+const popup_time_text = document.getElementById("map_image_time_text");
 
 var activeMarker = null;
 var activeMarkerSavedPosition = null;
@@ -144,8 +165,11 @@ window.addEventListener('click', (event) => {
       popup.style.left = ''+100*(popupOffset.x)+'%'
       popup.style.top = ''+100*(popupOffset.y)+'%'
 
+      console.log(parseInt(object.userData.time));
+      popup_author_text.textContent = "Autorstwa: "+object.userData.author;
+      popup_time_text.textContent = ""+dateFormatter(object.userData.time);
       photo.src = "/static/live/src/"+object.userData.photo;
-      console.log(object.userData.photo);
+      //console.log(object.userData.photo);
     }
   else
     {
