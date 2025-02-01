@@ -16,7 +16,15 @@ Po zainstalowaniu wszystkich modułów projekt jest gotowy do uruchomienia:
 ```
 python main.py
 ```
+⚠️ Z uwagi na boty scrapujące publiczne repozytoria, w przesłanym projekcie nie umieściłem backendowych tokenów reCaptchy. W razie błędu, wywołanie funkcji weryfikacji captchy można zamienić w komentarz, albo zamienić token własnym.
+
 Projekt domyślnie włącza się na porcie `5000`, zatem URL to `127.0.0.1:5000`
+
+### 💡 Testowanie
+
+Projekt zawiera funkcje odczytujące dane EXIF z obrazów które to wspierają. Rozumiem, że niekiedy trudno na nie trafić, gdyż nie wszystkie zdjęcia zawierają te informacje. Dlatego dla potrzeb testowania, załączam publiczny zasób zdjęć z zawartymi informacjami geolokalizacyjnymi:
+
+https://github.com/ianare/exif-samples/tree/master/jpg/gps
 
 ## 🏗️ Architektura Projektu
 Projekt jest podzielony na foldery zgodnie z wymaganiami środowiska Flask:
