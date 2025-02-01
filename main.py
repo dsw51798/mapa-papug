@@ -8,6 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from werkzeug.utils import secure_filename
 from PIL import Image
 from json_menu import json_file, JSONAdminView
+import requests
 import time
 import piexif
 import json
@@ -92,6 +93,17 @@ def get_latlong(file):
     except:
         return None, None
     
+def verify_recaptcha(response):
+        with open('secrets.txt') as f:
+            recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_secret_key = f.read()
+            payload = {
+                "secret": recaptcha_secret_key,
+                "response": response
+            }
+            response = requests.post(recaptcha_url, data = payload)
+            result = response.json()
+            return result.get('success', False)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -99,15 +111,19 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         email = request.form.get("email")
+        captcha = request.form.get("g-recaptcha-response")
 
+        if not captcha or not verify_recaptcha(captcha):
+            return render_template('register.html', msg='Proszę przejść weryfikację.')
+        
         if not username or not email or not password:
-            return render_template('register.html', msg='All fields are required')
+            return render_template('register.html', msg='Wszystkie pola są wymagane!')
 
         if not is_valid_email(email):
-            return render_template('register.html', msg='Invalid email format')
+            return render_template('register.html', msg='Niepoprawny adres e-mail!')
 
         if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
-            return render_template('register.html', msg='User already exists')
+            return render_template('register.html', msg='Użytkownik już istnieje!')
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = User(username=username, email=email, password=hashed_password)

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <script src="https://kit.fontawesome.com/ca2dbaeb71.js" crossorigin="anonymous"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <title>Mapa Papug — rejestracja</title>
   <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" />
 </head>
@@ -40,6 +41,9 @@
     Zakładając konto zgadzasz się z zasadami lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum augue sed hendrerit viverra. Phasellus sit amet auctor ex. Suspendisse lacinia lacus ex, ac semper eros placerat eget. Proin malesuada viverra porttitor. Sed semper at erat quis hendrerit. Aliquam vulputate tincidunt imperdiet. Maecenas massa tortor, tristique eu laoreet efficitur, rhoncus vitae velit. Donec ut risus libero. Suspendisse eget maximus velit.
     <form action="{{ url_for('register') }}" method="POST">
       <h1>Formularz rejestracyjny</h1>
+      {% if msg %}
+        <p style="color: red;">{{ msg }}</p>
+      {% endif %}
       <label for="username"><b>Nazwa użytkownika:</b></label>
       <br>
       <input type="text" name="username" />
@@ -52,11 +56,10 @@
       <br>
       <input type="password" name="password" />
       <br>
+      <b>Dodatkowa weryfikacja:</b>
+      <div class="g-recaptcha" data-sitekey="6LeMhskqAAAAAMtswtuHZEjiST3TYr4CH67IuIpV" name="g-recaptcha"></div>
       <button type="submit"><b>Załóż konto</b></button>
     </form>
-    {% if msg %}
-        <p style="color: red;">{{ msg }}</p>
-    {% endif %}
     <br>
   </main>
 </body>
