@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.form import fields
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 from PIL import Image
+from json_menu import json_file, JSONAdminView
 import time
 import piexif
 import json
@@ -23,7 +25,6 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 #login_manager.login_view = 'login'
 
-json_file = 'static/live/photos.json'
 admin = Admin()
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
@@ -32,7 +33,22 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
 
+class JSONField(fields.JSONField):
+    def _value(self):
+        if self.raw_data:
+            return self.raw_data[0]
+        elif self.data:
+            return json.dumps(self.data, ensure_ascii=False, indent=2)
+        else:
+            return ''
+
+class JSONView(ModelView):
+    form_overrides = {
+        'my_field': JSONField,
+    }
+
 admin.add_view(ModelView(User, db.session))
+admin.add_view(JSONAdminView(name="Manage JSON", endpoint="json_admin"))
 
 @login_manager.user_loader
 def load_user(user_id):

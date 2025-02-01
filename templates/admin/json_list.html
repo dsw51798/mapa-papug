@@ -1,0 +1,32 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+    <h2>Parrot Posts™</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% if data %}
+                    {% for key in data[0].keys() %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                {% endif %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    {% for value in item.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    <td>
+                        <form action="{{ url_for('json_admin.delete', item_id=loop.index0) }}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
