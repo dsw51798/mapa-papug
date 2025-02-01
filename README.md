@@ -44,12 +44,17 @@ Projekt zawiera podstawowe działania, takie jakich można oczekiwać od małego
  * Podstawowe operacje CRUD z poziomu użytkownika (np. zmiana hasła)
  * Zaawansowane operacje CRUD z poziomu administratora (np. dodawanie/usuwanie kont)
  * ⭐ Weryfikacja rejestracji ReCaptchą
+   
 ![image](https://github.com/user-attachments/assets/9df30a53-91b8-4a6d-9c90-89be7e72f9df)
 * Możliwość publikowania własnych zdjęć, dynamiczne odświeżanie "tablicy" zdjęć
  * + Opcja "moderowania" zawartości przez administratora, możliwość usunięcia postów z tablicy poprzez panel administratora
+
 Od strony technicznej:
 * Backend, operacje na bazach danych i walidacja danych przeprowadzane w Flasku
 * Wyświetlanie zoptymalizowanej sceny 3D z którą użytkownik może wchodzić w interakcję
 * Proces zbierania danych geolokacyjnych ze zdjęcia (dane EXIF -> funkcja GPS przeglądarki -> manualne wpisane danych przez użytkownika)
  * Konwertowanie szerokości i długości geograficznej (stopnie -> radiany) na współrzędne Vector3(X,Y,Z) na scenie 3D
 * Kompaktowy i czytelny projekt strony wykonany w CSS
+
+![image](https://github.com/user-attachments/assets/4adf1810-7441-4467-9c1f-97e330fb0a61)
+
