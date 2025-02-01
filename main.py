@@ -1,4 +1,6 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask import Flask, request, render_template, redirect, url_for
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -21,13 +23,15 @@ login_manager = LoginManager(app)
 #login_manager.login_view = 'login'
 app.config['UPLOAD_FOLDER'] = 'static/live/src'
 json_file = 'static/live/photos.json'
-
+admin = Admin()
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
+
+admin.add_view(ModelView(User, db.session))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -149,4 +153,5 @@ def index():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+        admin.init_app(app)
     app.run(host='0.0.0.0', port='5000', debug=True)
