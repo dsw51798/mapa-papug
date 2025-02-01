@@ -158,7 +158,7 @@ window.addEventListener('click', (event) => {
       popup.style.visibility = 'visible';
 
       //console.log(popupSize.x);
-      popupOffset = new THREE.Vector2((event.clientX - popupSize.x/2) / window.innerWidth, (event.clientY - popupSize.y*1.1 + window.scrollY) / window.innerHeight);
+      popupOffset = new THREE.Vector2((event.clientX - popupSize.x/2) / window.innerWidth, (event.clientY - popupSize.y*1.2 + window.scrollY) / window.innerHeight);
 
       //console.log("Adjusting popup by a scroll val of "+window.scrollY)
       //console.log(popupOffset);

@@ -66,6 +66,17 @@ def insert_photo(lat, lon, photo, time, author):
     with open(json_file, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=2)
 
+def cull_unused_photos():
+    with open(json_file, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    used_photos = {entry["photo"] for entry in data} 
+    files = set(os.listdir('static/live/src/'))
+
+    unused_photos = files - used_photos
+    #print(unused_photos)
+    for i in unused_photos:
+        os.remove('static/live/src/'+i)
+
 def get_latlong(file):
     try:
         img = Image.open(file)
@@ -207,6 +218,7 @@ def logout():
 
 @app.route('/parrot_map')
 def parrot_map():
+    cull_unused_photos()
     return render_template('parrot_map.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])

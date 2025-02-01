@@ -188,7 +188,7 @@ body {
 #map_image {
   display: block;
   border-radius: 4px;
-  max-width: 90%; max-height: 80%;
+  max-width: 90%; max-height: 60%;
   margin-left: auto; margin-right: auto;
 }
 

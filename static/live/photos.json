@@ -7,10 +7,52 @@
     "author": "asdasd"
   },
   {
-    "lat": "51.1330995",
-    "lon": "16.9644166",
+    "lat": 51.1330995,
+    "lon": 16.9644166,
     "photo": "pexels-frans-van-heerden-201846-1463295.jpg",
     "time": 1738373998,
     "author": "asdasd"
+  },
+  {
+    "lat": 51.1330995,
+    "lon": 16.9644166,
+    "photo": "pexels-soyd-contenido-1266938425-29083886.jpg",
+    "time": 1738373998,
+    "author": "papugi13"
+  },
+  {
+    "lat": -33.865143,
+    "lon": 151.209900,
+    "photo": "pexels-dennisariel-19526624.jpg",
+    "time": 1738273123,
+    "author": "jklfgh"
+  },
+  {
+    "lat": 48.856613,
+    "lon": 2.352222,
+    "photo": "pexels-justinas-ribakauskas-926248479-27849814.jpg",
+    "time": 1738172245,
+    "author": "rgosling"
+  },
+  {
+    "lat": 40.712776,
+    "lon": -74.005974,
+    "photo": "pexels-mohammad-abir-509097562-30308524.jpg",
+    "time": 1738071367,
+    "author": "jstatham"
+  },
+  {
+    "lat": 35.689487,
+    "lon": 139.691711,
+    "photo": "pexels-jala-pishyari-1741972-28914189.jpg",
+    "time": 1737970489,
+    "author": "popugai"
+  },
+  {
+    "lat": "-22.906847",
+    "lon": "-43.172897",
+    "photo": "pexels-dima-darii-768563557-29184927.jpg",
+    "time": 1737869611,
+    "author": "parrotworld"
   }
 ]
