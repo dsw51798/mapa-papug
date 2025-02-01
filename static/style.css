@@ -126,6 +126,17 @@ button[type=submit] {
   cursor: pointer;
 }
 
+button{
+  width: 120px;
+  background-color: #deb887;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 input[type=submit]:hover {
   background-color: #45a049;
 }

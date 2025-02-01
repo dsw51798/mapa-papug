@@ -16,12 +16,13 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['UPLOAD_FOLDER'] = 'static/live/src'
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 #login_manager.login_view = 'login'
-app.config['UPLOAD_FOLDER'] = 'static/live/src'
+
 json_file = 'static/live/photos.json'
 admin = Admin()
 class User(db.Model, UserMixin):
@@ -115,6 +116,56 @@ def login():
         return render_template('login.html', msg='Invalid credentials')
 
     return render_template('login.html')
+
+@app.route('/update_email', methods = ['GET', 'POST'])
+def update_email():
+    if request.method == 'POST':
+        new_email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(username=current_user.username).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            user.email = new_email
+            db.session.commit()
+            return render_template('profile.html', msg="Pomyślnie zaktualizowano adres e-mail!")
+        else:
+            return render_template('profile.html', msg="Błędne hasło!")
+
+@app.route('/update_password', methods = ['GET', 'POST'])
+def update_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        user = User.query.filter_by(username=current_user.username).first()
+        if user and (user.email == email and password == confirm_password):
+            user.password = bcrypt.generate_password_hash(password).decode('utf-8')
+            db.session.commit()
+            return render_template('profile.html', msg="Pomyślnie zaktualizowano hasło!")
+        else:
+            return render_template('profile.html', msg="Błędny e-mail!")
+        
+@app.route('/delete_account', methods = ['GET', 'POST'])
+def delete_account():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        checkbox = request.form.get('master_safe')
+        user = User.query.filter_by(username=current_user.username).first()
+        if checkbox:
+            if user and bcrypt.check_password_hash(user.password, password):
+                db.session.delete(user)
+                db.session.commit()
+                return redirect(url_for('index'))
+            else:
+                return render_template('profile.html', msg="Błędne hasło!")
+        else:
+            return render_template('profile.html', msg="Opcja jest nieodwracalna i wymaga dodatkowego zatwierdzenia.")
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html')
 
 @app.route('/logout')
 @login_required

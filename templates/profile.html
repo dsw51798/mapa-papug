@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://kit.fontawesome.com/ca2dbaeb71.js" crossorigin="anonymous"></script>
+  <title>Mapa Papug</title>
+  <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>PAPUGI</h1>
+    i papużki<br><br>
+  </header>
+
+  <ul>
+    <li><a href="{{url_for('index')}}"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="{{url_for('parrot_map')}}"><i class="fa-solid fa-globe"></i> Mapa Papug</a></li>
+    <li><a href="#about"><i class="fa-solid fa-newspaper"></i> O nas</a></li>
+    <div class="dropdown">
+      <li1><a href="{{url_for('profile')}}">Mój profil <i class="fa-solid fa-user"></i></a></li1>
+      <div class="dropdown-content">
+        <ul>
+          {% if current_user.is_authenticated %}
+            <li1><a href="{{url_for('logout')}}">Wyloguj się <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li1>
+            <li1><a href="{{url_for('parrot_map')}}">Zacznij przesyłać! <i class="fa-solid fa-image"></i></a></li1>
+          {% else %}
+            <li1><a href="{{url_for('login')}}">Zaloguj się <i class="fa-solid fa-key"></i></a></li1>
+            <li1><a href="{{url_for('register')}}">Utwórz konto <i class="fa-solid fa-id-card"></i></a></li1>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </ul>
+
+  <main>
+    {% if current_user.is_authenticated %}
+        <h1>Zalogowano jako {{current_user.username}}</h1>
+        <a href="{{url_for('logout')}}"><button>Wyloguj się</button></a>
+        <h2>Co chcesz zrobić?</h2>
+        {% if msg %}
+            <b style="color: red;">{{ msg }}</b>
+        {% endif %}
+        <form action="{{ url_for('update_email') }}" method="POST">
+            <h3>Zaktualizuj adres e-mail</h3>
+            <label for="email"><b>Email:</b></label>
+            <br>
+            <input type="text" name="email" required />
+            <br>
+            <label for="password"><b>Potwierdź obecne hasło:</b></label>
+            <br>
+            <input type="password" name="password" />
+            <br>
+            <button type="submit"><b>Zaktualizuj</b></button>
+          </form>
+        <form action="{{ url_for('update_password') }}" method="POST">
+            <h3>Zmień hasło</h3>
+            <label for="email"><b>Pytanie weryfikacyjne — email:</b></label>
+            <br>
+            <input type="text" name="email" required />
+            <br>
+            <label for="password"><b>Nowe hasło:</b></label>
+            <br>
+            <input type="password" name="password" />
+            <br>
+            <label for="confirm_password"><b>Potwierdź hasło:</b></label>
+            <br>
+            <input type="password" name="confirm_password" />
+            <br>
+            <button type="submit"><b>Zaktualizuj</b></button>
+        </form>
+        <form action="{{ url_for('delete_account') }}" method="POST">
+            <h3 style="color: red;">Usuń konto</h3>
+            <label for="password"><b>Obecne hasło:</b></label>
+            <br>
+            <input type="password" name="password" />
+            <br>
+            <label for="master_safe">Potwierdzam, że akcja którą wykonam będzie nieodwracalna i chcę przejść dalej</label>
+            <input type="checkbox" name="master_safe">
+            <button type="submit" style="background-color: red;">USUŃ KONTO</button>
+        </form>
+    {% else %}
+      <h1>Jesteś wylogowany(a)</h1>
+      <a href="{{url_for('register')}}"><button>Załóż konto</button></a>
+      <a href="{{url_for('login')}}"><button>Zaloguj się</button></a>
+    {% endif %}
+  </main>
+</body>
+</html>
